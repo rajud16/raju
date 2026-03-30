@@ -83,7 +83,11 @@ creating procedure and loaging the data into tables:
 create or alter procedure bronze.load_bronze as
 begin
 
+declare @start_time datetime,@end_time datetime,@batch_start_time datetime,@batch_end_time datetime;
+
   begin try
+
+  set @batch_start_time = GETDATE();
 
      print'===============================================';
      print'loading bronze layer';
@@ -96,7 +100,7 @@ begin
       print'-------------------------------------------------';
 
 
-
+      set @start_time = GETDATE();
       print'>> trucating the table:bronze.crm_cust_info';
 
       truncate table bronze.crm_cust_info;
@@ -111,6 +115,14 @@ begin
        tablock
 
       );
+
+      set @end_time = GETDATE();
+
+      print'load duration:' + cast(datediff(second,@start_time,@end_time) as nvarchar) + 'seconds';
+      print'---------------------';
+
+      set @start_time = GETDATE();
+
       print'>> trucating the table:bronze.crm_prd_info';
       truncate table bronze.crm_prd_info;
 
@@ -127,6 +139,13 @@ begin
 
      );
 
+     set @end_time = GETDATE();
+
+     print'loading time:' + cast(datediff(minute,@start_time,@end_time) as nvarchar) + 'minutes';
+     print'---------------------------';
+
+
+     set @start_time = getdate();
       print'>> trucating the table:bronze.crm_sales_details';
       truncate table bronze.crm_sales_details;
 
@@ -139,11 +158,18 @@ begin
      tablock
      );
 
+     set @end_time = GETDATE();
+
+     print'loading time:' + cast(datediff(second,@start_time,@end_time) as nvarchar) + 'seconds';
+     print'---------------------------';
+
       print'-------------------------------------';
       print'laoidng ERP tables';
       print'---------------------------------------';
 
 
+
+       set @start_time = getdate();
       print'>> trucating the table:bronze.erp_CUST_AZ12';
       truncate table bronze.erp_CUST_AZ12;
 
@@ -155,6 +181,13 @@ begin
       fieldterminator = ',',
      tablock
      );
+
+     set @end_time = GETDATE();
+
+     print'loading time:' + cast(datediff(second,@start_time,@end_time) as nvarchar) + 'seconds';
+     print'---------------------------';
+
+     set @start_time = GETDATE();
 
       print'>> trucating the table:bronze.erp_loc_A101';
       truncate table bronze.erp_loc_A101;
@@ -168,6 +201,13 @@ begin
       tablock
      );
 
+     set @end_time = GETDATE();
+
+     print'loading time:' + cast(datediff(second,@start_time,@end_time) as nvarchar) + 'seconds';
+     print'---------------------------';
+
+     set @start_time = GETDATE();
+
       print'>> trucating the table:bronze.erp_PX_CAT_G1V2';
       truncate table bronze.erp_PX_CAT_G1V2;
 
@@ -179,6 +219,14 @@ begin
       fieldterminator=',',
      tablock
      );
+
+     set @end_time = GETDATE();
+
+     print'loading time:' + cast(datediff(second,@start_time,@end_time) as nvarchar) + 'seconds';
+     print'---------------------------';
+
+     set @batch_end_time=getdate();
+     print'bronze loading :' + cast(datediff(second,@batch_start_time,@batch_end_time) as nvarchar) + 'seconds';
    end try
    begin catch
      print'=============================================';
@@ -190,6 +238,15 @@ begin
    end catch
 
 end
+  
+
+
+      
+
+      
+
+     
+
 
 
 
