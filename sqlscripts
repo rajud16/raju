@@ -79,8 +79,8 @@ MAINTENANCE nvarchar(50)
 Upload data from local system to sql server
 ----------------------------------------------
 -----------------------------------------------
-
-1.BULK INSERT bronze.crm_cust_info
+1.truncate table bronze.crm_cust_info;
+BULK INSERT bronze.crm_cust_info
 FROM 'C:\Users\user\OneDrive\Desktop\DataWarehouse project\source_crm\cust_info.csv'
 with (
 firstrow = 2,
@@ -89,8 +89,8 @@ tablock
 
 );
 
-
-2.BULK INSERT  bronze.crm_prd_info
+2.truncate table bronze.crm_prd_info;
+BULK INSERT  bronze.crm_prd_info
 
 from 'C:\Users\user\OneDrive\Desktop\DataWarehouse project\source_crm\prd_info.csv'
 
@@ -102,8 +102,8 @@ tablock
 
 );
 
-
-3.bulk insert bronze.erp_CUST_AZ12
+3.truncate table bronze.erp_CUST_AZ12;
+bulk insert bronze.erp_CUST_AZ12
 from 'C:\Users\user\OneDrive\Desktop\DataWarehouse project\source_erp\CUST_AZ12.csv'
 with(
 firstrow = 2,
@@ -111,15 +111,15 @@ fieldterminator = ',',
 tablock
 );
 
-
-4.bulk insert bronze.erp_loc_A101
+4.truncate table bronze.erp_loc_A101;
+bulk insert bronze.erp_loc_A101
 from 'C:\Users\user\OneDrive\Desktop\DataWarehouse project\source_erp\LOC_A101.csv'
 with(
 firstrow=2,
 fieldterminator=',',
 tablock
 );
-
+truncate table bronze.erp_PX_CAT_G1V2;
 5.bulk insert bronze.erp_PX_CAT_G1V2
 from 'C:\Users\user\OneDrive\Desktop\DataWarehouse project\source_erp\PX_CAT_G1V2.csv'
 with(
@@ -128,7 +128,9 @@ fieldterminator=',',
 tablock
 );
 
-6.bulk insert bronze.crm_sales_details
+
+6.truncate table bronze.crm_sales_details;
+bulk insert bronze.crm_sales_details
 from 'C:\Users\user\OneDrive\Desktop\DataWarehouse project\source_crm\sales_info.csv'
 with(
 firstrow=2,
