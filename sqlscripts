@@ -76,7 +76,7 @@ SUBCAT nvarchar(50),
 MAINTENANCE nvarchar(50)
 );
 
-upload date from local system to sql server
+Upload data from local system to sql server
 ----------------------------------------------
 -----------------------------------------------
 
