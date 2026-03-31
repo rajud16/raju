@@ -19,7 +19,7 @@ sls_price int
 
 
 =============================================================
-silver.crm_cust_info clean data import from .crm_cust_info
+silver.crm_cust_info clean data import from bronze.crm_cust_info
 ============================================================
 
 
