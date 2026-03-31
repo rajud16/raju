@@ -1,5 +1,6 @@
-
--------------silver.crm_cust_info clean data--------------
+=================================
+silver.crm_cust_info clean data
+================================
 
 
 insert into silver.crm_cust_info(
