@@ -93,6 +93,50 @@ silver.crm_sales_details clean data import from bronze.crm_sales_details
 =========================================================================
 
 
+insert into silver.crm_sales_details (sls_ord_num,
+sls_prd_key,
+sls_cust_id,
+sls_order_dt,
+sls_ship_dt,
+sls_due_dt,
+sls_sales,
+sls_quantity,
+sls_price
+)
+
+
+select 
+trim(substring(sls_ord_num,2,len(sls_ord_num))) as sls_ord_num,
+
+sls_prd_key,
+sls_cust_id,
+
+case
+ when sls_order_dt  = 0 or len(sls_order_dt) ! = 8 then Null
+ else cast(cast(sls_order_dt as varchar) as date)
+end as sls_order_dt,
+
+
+case
+
+when sls_ship_dt = 0 or len(sls_ship_dt) ! = 8 then null
+else cast (cast (sls_ship_dt as varchar) as date)
+
+end as sls_ship_dt,
+
+case
+when sls_due_dt = 0 or len(sls_due_dt) != 8 then null
+else cast( cast(sls_due_dt as varchar) as date)
+end as sls_due_dt,
+
+sls_sales,
+sls_quantity,
+
+cast(trim(substring(sls_price,1,len(sls_price) - 1)) as int) as sls_price
+ from bronze.crm_sales_details
+
+ select * from silver.crm_sales_details
+
 
 
 
