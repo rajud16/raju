@@ -1,6 +1,6 @@
-=================================
-silver.crm_cust_info clean data
-================================
+=============================================================
+silver.crm_cust_info clean data import from .crm_cust_info
+============================================================
 
 
 insert into silver.crm_cust_info(
@@ -44,8 +44,8 @@ where flag_last = 1;
 select * from silver.crm_cust_info
 
 ======================================================================
-silver.crm_prd_info clean data
-========================================
+silver.crm_prd_info clean data import from bronze .crm_prd_info
+=============================================================
 
 if object_id('silver.crm_prd_info','u') is not null
 
@@ -87,6 +87,10 @@ cast(lead(prd_start_dt) over(partition by prd_key order by prd_start_dt) -1 as d
 
 as prd_end_dt
 from bronze.crm_prd_info
+
+========================================================================
+silver.crm_sales_details clean data import from bronze.crm_sales_details
+=========================================================================
 
 
 
