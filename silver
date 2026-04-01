@@ -218,8 +218,23 @@ select
     else trim(cntry)
 
  end as cntry 
+
 from bronze.erp_LOC_A101
 
+==============================================================================
+inserting clean data from bronze.erp_PX_CAT_G1V2 to silver.erp_PX_CAT_G1V2
+
+===================================================================================
+
+insert into silver.erp_PX_CAT_G1V2
+(id,cat,
+subcat,
+MAINTENANCE)
+
+select id,cat,subcat,maintenance 
+from bronze.erp_PX_CAT_G1V2
+
+select * from silver.erp_PX_CAT_G1V2
 
 
 
