@@ -157,6 +157,21 @@ cast(trim(substring(sls_price,1,len(sls_price) - 1)) as int) as sls_price
 
  select * from silver.crm_sales_details
 
+=====================================================
+sls_price,sls_sales removing null ans zero's and neagtive values
+=============================================================
+case  
+    when sls_price is null or sls_price <=0 
+    then sls_price/nullif(sls_quantity,0)
+    else sls_price
+end as sls_price,
+
+case
+  when sls_sales is null or sls_sales <=0 or sls_sales != ABS(sls_price)*sls_quantity
+  then ABS(sls_price)*sls_quantity
+  else sls_sales
+end as sls_sales
+from silver.crm_sales_details
 
 
 
