@@ -3,39 +3,6 @@ cleansed data
 =======================================
 
 
-select
-cst_id,
-cst_key,
-cst_firstname,
-cst_lastname,
-cst_marital_status,
-case
-   when cst_gndr!='n\a' then cst_gndr
-   else coalesce(gen,'n\a') 
-end as new_gendr,
-cst_create_date,
-BDATE,
-cntry  
-from(select *,
-row_number() over(partition by cst_key order by cst_id) as flagcount
-from 
-(select ci.cst_id,
-ci.cst_key,
-ci.cst_firstname,
-ci.cst_lastname,
-ci.cst_marital_status,
-ci.cst_gndr,
-ci.cst_create_date,
-ca.cid,
-ca.bdate,
-ca.gen,
-la.cntry
-from silver.crm_cust_info ci
-left join silver.erp_CUST_AZ12 ca
-on ci.cst_key= ca.cid
-left join silver.erp_LOC_A101 la
-on ci.cst_key=la.cid) t)p
-where flagcount=1
 
 
 
