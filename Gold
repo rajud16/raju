@@ -73,3 +73,28 @@ on ci.cat_id=cp.id
 
 where prd_end_dt is null
 
+
+======================================
+Created View for sales info
+=======================================
+
+
+create view gold.fact_sales as 
+select 
+sls_ord_num as order_number,
+pd.product_key,
+gc.customer_key,
+sls_order_dt as order_date,
+sls_ship_dt as shipping_date,
+sls_due_dt as due_date,
+sls_sales as sales_amount,
+
+sls_quantity as quantity,
+sls_price as price
+
+from silver.crm_sales_details1 cd
+left join gold.dim_customers gc
+on cd.sls_cust_id= gc.customer_id 
+left join gold.dim_product pd
+on cd.sls_prd_key= pd.product_number
+
