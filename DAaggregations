@@ -51,3 +51,20 @@ select count(customer_id) as totalcustomers from gold.dim_customers
 --find the total number of customers that has placed an order
 
 select count(distinct customer_key) as totalcustomers from gold.fact_sales
+=====================================================================
+union all
+============================================================
+
+select 'tottalsale' as measure_name,sum(sales_amount) as measure_value from gold.fact_sales
+union all
+select 'totalquantity', sum(quantity)  from gold.fact_sales
+union all
+select 'avgprice', avg(price)   from gold.fact_sales
+union all
+select 'totalordnumber', count(distinct order_number)   from gold.fact_sales
+union all
+select 'totalnumberproducts', count(product_key)  from gold.dim_product
+union all
+select 'totalcustomers', count(customer_id)   from gold.dim_customers
+union all
+select 'totalcustomers', count(distinct customer_key)   from gold.fact_sales
