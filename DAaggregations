@@ -1,1 +1,24 @@
 
+
+----find the first order and lsat order
+-----how many years/days/month of sales available
+
+select * from gold.fact_sales
+
+
+select
+max(order_date) as lastorder,
+min(order_date) as firstorder,
+datediff(year,min(order_date),max(order_date)) as numberofyearsales,
+datediff(month,min(order_date),max(order_date)) as numberofmonthsales,
+datediff(day,min(order_date),max(order_date)) as numberofdaysales
+from gold.fact_sales
+
+
+---find the youngest and oldest customers
+
+select * from gold.dim_customers
+select min(birthdate) as oldest,
+max(birthdate) as youngest,
+datediff(year,min(birthdate),getdate()) as oldage,
+datediff(year,max(birthdate),getdate()) as youngest from gold.dim_customers
