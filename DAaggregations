@@ -227,3 +227,9 @@ order by lowestorders
 Advanced data alalytics
 ==============================================
 -----complex querries,window functions,cte,sub qurries,reports
+
+---change ovr time
+rank(measure)by over (date dimension)
+     (total sales) over by (year)
+     (avg cost) over by (month)
+
