@@ -225,11 +225,60 @@ order by lowestorders
 
 ==============================================
 Advanced data alalytics
-==============================================
+
 -----complex querries,window functions,cte,sub qurries,reports
 
 ---change ovr time
 rank(measure)by over (date dimension)
      (total sales) over by (year)
      (avg cost) over by (month)
+====================================================
+
+--analysie sales performance over time
+
+select year(order_date) as yearwise,
+month(order_date) as monthwise,
+sum(sales_amount) as totalamount,
+count(distinct customer_key) as totalcustomers,
+sum(quantity) as totalquantity,
+row_number() over(order by sum(sales_amount) desc)as ranking
+from gold.fact_sales
+where order_date is not null
+group by year(order_date),month(order_date)
+
+
+select datetrunc(month,order_date) as monthwise,
+
+sum(sales_amount) as totalamount,
+count(distinct customer_key) as totalcustomers,
+sum(quantity) as totalquantity,
+row_number() over(order by sum(sales_amount) desc)as ranking
+from gold.fact_sales
+where order_date is not null
+group by datetrunc(month,order_date)
+
+select datetrunc(year,order_date) as monthwise,
+sum(sales_amount) as totalamount,
+count(distinct customer_key) as totalcustomers,
+sum(quantity) as totalquantity,
+row_number() over(order by sum(sales_amount) desc)as ranking
+from gold.fact_sales
+where order_date is not null
+group by datetrunc(year,order_date)
+
+select format(order_date, 'yyyy-MMM') as monthwise,
+sum(sales_amount) as totalamount,
+count(distinct customer_key) as totalcustomers,
+sum(quantity) as totalquantity
+
+from gold.fact_sales
+where order_date is not null
+group by format(order_date, 'yyyy-MMM')
+
+
+
+
+
+
+
 
