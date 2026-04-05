@@ -162,4 +162,61 @@ on f.customer_key= c.customer_key
 group by c.firstname,c.lastname,c.customer_key
 order by totalrevenue desc
 
+====================================
+----Ranking Analysis
+=========================================
+
+---rank(dimensions) by (measure)
+----countries by total sales
+--which five 5 products generate the highest revenue
+
+select * from gold.dim_product
+select * from gold.fact_sales
+
+select top 5 p.product_name,sum(f.sales_amount) totalrevenue
+from gold.fact_sales f
+left join gold.dim_product p
+on f.product_key= p.product_key
+group by p.product_name
+order by totalrevenue desc
+
+select top 5 p.product_name,sum(f.sales_amount) totalrevenue
+from gold.fact_sales f
+left join gold.dim_product p
+on f.product_key= p.product_key
+group by p.product_name
+order by totalrevenue 
+
+----using window functions
+
+select * from (select product_name,sum(f.sales_amount) as totalrevenue,
+
+row_number() over ( order by sum(f.sales_amount) desc) as rownumber
+from gold.fact_sales f
+left join gold.dim_product p
+on f.product_key= p.product_key
+group by p.product_name) t 
+where rownumber <=5
+
+----find the top10 customers who have generated the highest revenue 
+
+
+select * from (select  c.firstname,c.lastname,c.customer_key,sum(f.sales_amount) as totalrevenue,
+row_number() over (order by sum(f.sales_amount) desc) as ranking
+from gold.fact_sales f
+left join gold.dim_customers c
+on f.customer_key= c.customer_key
+group by c.firstname,c.lastname,c.customer_key) t
+where ranking<=10 
+
+------3 customers with the fewesr orders place
+
+select top 3 c.customer_key,c.firstname,c.lastname,
+count(distinct order_number)as lowestorders 
+from gold.fact_sales f
+left join gold.dim_customers c
+on c.customer_key= f.customer_key
+group by c.customer_key,c.firstname,c.lastname
+order by lowestorders
+
 
