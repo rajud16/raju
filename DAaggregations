@@ -223,4 +223,8 @@ on c.customer_key= f.customer_key
 group by c.customer_key,c.firstname,c.lastname
 order by lowestorders
 
+==============================================
+advanced data alalytics
+==============================================
+
 
