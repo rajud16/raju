@@ -224,7 +224,7 @@ group by c.customer_key,c.firstname,c.lastname
 order by lowestorders
 
 ==============================================
-advanced data alalytics
+Advanced data alalytics
 ==============================================
 
 
